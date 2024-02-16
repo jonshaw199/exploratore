@@ -1,0 +1,44 @@
+idf_component_register(
+    SRCS 
+        "main.cpp"
+        "patterns/pattern.cpp"
+        "patterns/pattern_test.cpp"
+        "patterns/confetti.cpp"
+        "patterns/beatwave.cpp"
+        "patterns/black.cpp"
+        "patterns/blendwave.cpp"
+        "patterns/blur.cpp"
+        "patterns/confetti_pal.cpp"
+        "patterns/dot_beat.cpp"
+        "patterns/easing.cpp"
+        "patterns/fade_in.cpp"
+        "patterns/inoise8_fire.cpp"
+        "patterns/inoise8_mover.cpp"
+        "patterns/inoise8_pal.cpp"
+        "patterns/juggle_pal.cpp"
+        "patterns/lightnings.cpp"
+        "patterns/matrix_pal.cpp"
+        "patterns/matrix_ray.cpp"
+        "patterns/noise16_1.cpp"
+        "patterns/noise16_2.cpp"
+        "patterns/noise16_3.cpp"
+        "patterns/one_sine_pal.cpp"
+        "patterns/palette_crossfade.cpp"
+        "patterns/plasma.cpp"
+        "patterns/rainbow_beat.cpp"
+        "patterns/rainbow_march.cpp"
+        "patterns/rainbow_pal.cpp"
+        "patterns/ripples.cpp"
+        "patterns/sawtooth.cpp"
+        "patterns/serendipitous.cpp"
+        "patterns/sinelon.cpp"
+        "patterns/three_sin.cpp"
+        "patterns/three_sin_pal.cpp"
+        "patterns/two_sin_pal.cpp"
+    INCLUDE_DIRS "." "patterns"
+    PRIV_REQUIRES 
+        arduino
+        espidf-m5stickcplus
+        espidf-fastled
+        nvs_flash
+)
