@@ -2,11 +2,12 @@
 #define EXPLORATORE_PATTERN_H
 
 #include <FastLED.h>
+#include "arduino_routine.hpp"
 
-class Pattern
+class Pattern : public ArduinoRoutine
 {
 public:
-    Pattern(CRGB *leds, u_int16_t num_leds);
+    Pattern(CRGB *leds, uint16_t num_leds, std::string name = "");
     virtual ~Pattern() = default;
     virtual void setup();
     virtual void loop();

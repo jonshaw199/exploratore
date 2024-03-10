@@ -24,7 +24,7 @@ using namespace sawtooth_ns;
 
 void Sawtooth::loop () {
 
-  Serial.println(LEDS.getFPS());
+  // Serial.println(LEDS.getFPS());
   sawtooth();
   FastLED.show();
 

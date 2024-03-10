@@ -35,8 +35,13 @@ idf_component_register(
         "patterns/three_sin.cpp"
         "patterns/three_sin_pal.cpp"
         "patterns/two_sin_pal.cpp"
-    INCLUDE_DIRS "." "patterns"
-    PRIV_REQUIRES 
+        "patterns/patterns.cpp"
+        "imu_wake_on_motion.cpp"
+        "arduino_routine.cpp"
+    INCLUDE_DIRS
+        "."
+        "patterns"
+    PRIV_REQUIRES
         arduino
         espidf-m5stickcplus
         espidf-fastled

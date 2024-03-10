@@ -39,7 +39,7 @@ void Plasma::loop () {
   }
 
   EVERY_N_MILLISECONDS(1000) {
-    Serial.println(LEDS.getFPS());                            // Optional check of our fps.
+    // Serial.println(LEDS.getFPS());                            // Optional check of our fps.
   }
 
   EVERY_N_MILLISECONDS(100) {

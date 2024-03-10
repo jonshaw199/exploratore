@@ -55,7 +55,7 @@ void MatrixRay::loop () {
   
   FastLED.show();
 
-  Serial.println(LEDS.getFPS());
+  // Serial.println(LEDS.getFPS());
 
 } // loop()
 

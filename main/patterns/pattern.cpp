@@ -3,7 +3,7 @@
 
 static const char *TAG = "pattern";
 
-Pattern::Pattern(CRGB *leds, uint16_t num_leds) : leds(leds), num_leds(num_leds) {}
+Pattern::Pattern(CRGB *leds, uint16_t num_leds, std::string name) : ArduinoRoutine(name), leds(leds), num_leds(num_leds) {}
 
 void Pattern::setup() {}
 
