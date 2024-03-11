@@ -11,6 +11,7 @@ list(APPEND EXTRA_COMPONENT_DIRS
     "../lib/arduino"
     "../lib/espidf-fastled"
     "../lib/espidf-m5stickcplus"
+    "../lib/IRremoteESP8266"
 )
 
 project(main)

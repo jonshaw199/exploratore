@@ -5,8 +5,9 @@
 #include <mutex>
 #include "patterns.hpp"
 #include "imu_wake_on_motion.h"
+#include "evil_remote.hpp"
 
-#define NUM_MODES 1
+#define NUM_MODES 2
 
 #define EVENT_BTN_A 1
 #define EVENT_BTN_B 2
@@ -20,11 +21,17 @@ std::mutex mode_idx_mutex;
 TFT_eSprite screen_sprite = TFT_eSprite(&M5.Lcd);
 
 ArduinoRoutine *modes[NUM_MODES] = {
-    new Patterns("Patterns", &screen_sprite)
+    new Patterns("Patterns", &screen_sprite),
+    new EvilRemote("Evil Remote", &screen_sprite)
 };
 
 IMUWakeOnMotion m5stickcplus_wake;
 
+static void draw_mode_name() {
+    screen_sprite.fillRect(0, 0, M5.Lcd.width(), 15, BLACK);
+    screen_sprite.drawString(modes[mode_idx]->get_name().c_str(), 2, 2);
+    screen_sprite.drawLine(0, 15, M5.Lcd.width(), 15, WHITE);
+}
 
 static void m5stickcplus_setup()
 {
@@ -32,10 +39,9 @@ static void m5stickcplus_setup()
 	//M5.Lcd.setRotation(3);
 	//M5.Lcd.fillScreen(BLACK);
 	//M5.Lcd.setTextSize(2);
-	screen_sprite.createSprite(M5.Lcd.width(), M5.Lcd.height());
-	screen_sprite.drawString(modes[mode_idx]->get_name().c_str(), 2, 2);
-	screen_sprite.drawLine(0, 15, M5.Lcd.width(), 15, WHITE);
-	screen_sprite.pushSprite(0, 0);
+    screen_sprite.createSprite(M5.Lcd.width(), M5.Lcd.height());
+    draw_mode_name();
+    screen_sprite.pushSprite(0, 0);
 }
 
 
@@ -47,21 +53,26 @@ void m5stickcplus_loop(void *pv_parameters)
 
         if (M5.BtnA.wasReleased()) {
             ESP_LOGI(TAG, "A");
+            mode_idx_mutex.lock();
+            modes[mode_idx]->handle_event(EVENT_BTN_A);
+            mode_idx_mutex.unlock();
         } else if (M5.BtnB.wasReleased()) {
             ESP_LOGI(TAG, "B");
             mode_idx_mutex.lock();
             modes[mode_idx]->handle_event(EVENT_BTN_B);
+            screen_sprite.fillRect(0, 15, screen_sprite.width(), screen_sprite.height() - 15, BLACK);
+            mode_idx = (mode_idx + 1) % NUM_MODES;
+            modes[mode_idx]->setup();
+            draw_mode_name();
             mode_idx_mutex.unlock();
         } else if (M5.BtnB.wasReleasefor(700)) {
             ESP_LOGI(TAG, "B Hold");
             mode_idx_mutex.lock();
             modes[mode_idx]->handle_event(EVENT_BTN_B_HOLD);
-            mode_idx = (mode_idx + 1) % NUM_MODES;
-            modes[mode_idx]->setup();
             mode_idx_mutex.unlock();
         }
-	
-	screen_sprite.pushSprite(0, 0);
+
+        screen_sprite.pushSprite(0, 0);
 
         vTaskDelay(5);
     }

@@ -45,7 +45,7 @@
 #define LED_PIN 26
 #define NUM_PATTERNS 32
 
-#define EVENT_NEXT_PATTERN 2
+#define EVENT_NEXT_PATTERN 1
 
 static const char *TAG = "Patterns";
 
@@ -92,7 +92,7 @@ Patterns::Patterns(std::string name, TFT_eSprite* sprite) : ArduinoRoutine(name,
 void Patterns::show_pattern_name() {
     if (this->sprite) {
         this->sprite->fillRect(0, this->sprite->height() / 2 - 25, this->sprite->width(), 50, BLACK);
-	this->sprite->drawString(patterns[pattern_idx]->get_name().c_str(), 2, sprite->height() / 2);
+        this->sprite->drawString(patterns[pattern_idx]->get_name().c_str(), 2, sprite->height() / 2);
     }
 }
 

@@ -38,12 +38,15 @@ idf_component_register(
         "patterns/patterns.cpp"
         "imu_wake_on_motion.cpp"
         "arduino_routine.cpp"
+        "evil_remote/evil_remote.cpp"
     INCLUDE_DIRS
         "."
         "patterns"
+        "evil_remote"
     PRIV_REQUIRES
         arduino
         espidf-m5stickcplus
         espidf-fastled
         nvs_flash
+        IRremoteESP8266
 )
